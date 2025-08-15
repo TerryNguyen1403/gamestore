@@ -3,13 +3,21 @@ import './Navbar.css';
 
 import logo from '../Assets/game-store-logo.png';
 import cart_icon from '../Assets/cart_icon.png'
-import { useContext, useState } from 'react';
+import dropdown_icon from '../Assets/nav_dropdown.png'
+
+import { useContext, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShopContext } from '../../Context/ShopContext'
 
 const Navbar = () => {
   const [menu, setMenu] = useState('shop');
   const { getTotalItems } = useContext(ShopContext);
+  const menuRef = useRef();
+
+  const dropdown_toggle = (e) => {
+    menuRef.current.classList.toggle('nav-menu-visible');
+    e.target.classList.toggle('open');
+  }
 
   return (
     <div className='navbar'>
@@ -19,7 +27,13 @@ const Navbar = () => {
         <p>GAMESTORE</p>
       </div>
 
-      <ul className="nav-menu">
+      <img
+        className='nav-dropdown'
+        src={dropdown_icon} alt=""
+        onClick={dropdown_toggle}
+      />
+
+      <ul ref={menuRef} className="nav-menu">
         <li onClick={() => {setMenu('shop')}}>
             <Link style={{ textDecoration: 'none' }} to='/'>
                 Trang chủ

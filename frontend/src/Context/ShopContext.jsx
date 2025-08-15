@@ -22,8 +22,6 @@ const ShopContextProvider = (props) => {
             ...prevProducts,
             [productId]: prevProducts[productId]+1
         }));
-        
-        console.log(cartProducts);
     };
 
     // Xóa sản phẩm khỏi giỏ hàng
