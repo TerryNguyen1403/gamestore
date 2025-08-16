@@ -72,11 +72,15 @@
     }
 
     .item img{
-        width: 120px;
+        width: 160px;
     } 
 
     .item-price-old{
-        font-size: 12px;
+        font-size: 11px;
+    }
+
+    .item-price-new{
+        font-size: 11px;
     } 
 }
 

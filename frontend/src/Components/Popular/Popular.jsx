@@ -6,7 +6,7 @@ import Item from '../Item/Item'
 const Popular = () => {
   return (
     <div className='popular'>
-      <h1>GAME MỚI RA MẮT</h1>
+      <h1>GAME HOT</h1>
       <hr />
 
       <div className="popular-item">

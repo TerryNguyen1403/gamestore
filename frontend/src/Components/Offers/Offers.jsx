@@ -7,7 +7,7 @@ const Offers = () => {
     <div className='offers'>
       <div className="offers-left">
         <h1>Ưu đãi</h1>
-        <h1>Cực hot</h1>
+        <h1>Dành cho bạn</h1>
         <p>Hàng trăm tựa game với nhiều ưu đãi hấp dẫn</p>
         <button>Khám phá ngay</button>
       </div>
