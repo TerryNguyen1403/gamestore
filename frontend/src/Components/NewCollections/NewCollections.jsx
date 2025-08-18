@@ -6,7 +6,7 @@ import Item from '../Item/Item'
 const NewCollections = () => {
   return (
     <div className='new-collections'>
-      <h1>New Collections</h1>
+      <h1>Các tựa game mới</h1>
       <hr />
 
       <div className="collections">

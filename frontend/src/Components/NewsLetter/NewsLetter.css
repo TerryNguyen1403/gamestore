@@ -14,7 +14,7 @@
 
 .news-letter h1{
     color: #003366;
-    font-size: 55px;
+    font-size: 40px;
     font-weight: 600;
 }
 
@@ -53,4 +53,124 @@
     color: white;
     font-size: 16px;
     cursor: pointer;
+}
+
+/* Responsive */
+
+@media(max-width:1280px){
+    .news-letter{
+        padding: 0px 80px;
+        margin-bottom: 120px;
+        gap: 20px;
+    }
+
+    .news-letter h1{
+        font-size: 32px;
+    }
+
+    .news-letter p{
+        font-size: 17px;
+    }
+
+    .news-letter div{
+        width: 600px;
+        height: 60px;
+    }
+
+    .news-letter div input{
+        width: 400px;
+    }
+
+    .news-letter div button{
+        width: 160px;
+        height: 60px;
+    }
+}
+
+@media(max-width:1024px){
+    .news-letter{
+        margin-bottom: 60px;
+    }
+
+    .news-letter h1{
+        font-size: 28px;
+    }
+
+    .news-letter p{
+        font-size: 15px;
+    }
+
+    .news-letter div{
+        width: 500px;
+        height: 50px;
+    }
+
+    .news-letter div input{
+        width: 300px;
+        font-size: 14px;
+    }
+
+    .news-letter div button{
+        width: 130px;
+        height: 50px;
+        font-size: 14px;
+    }
+}
+
+@media(max-width:800px){
+    .news-letter{
+        margin-bottom: 30px;
+        height: 35vh;
+    }
+
+    .news-letter h1{
+        font-size: 25px;
+    }
+
+    .news-letter p{
+        font-size: 14px;
+    }
+
+    .news-letter div{
+        width: 400px;
+        height: 40px;
+    }
+
+    .news-letter div input{
+        width: 200px;
+        font-size: 13px;
+    }
+
+    .news-letter div button{
+        width: 120px;
+        height: 40px;
+        font-size: 13px;
+    }
+}
+
+@media(max-width:500px){
+    .news-letter{
+        height: 25vh;
+        width: 100%;
+        padding: 0;
+        gap: 15px;
+    }
+
+    .news-letter h1{
+        font-size: 20px;
+    }
+
+    .news-letter p{
+        font-size: 13px;
+        max-width: 200px;
+        text-align: center;
+    }
+
+    .news-letter div{
+        width: 320px;
+    }
+
+    .news-letter div input{
+        width: 130px;
+    }
 }
