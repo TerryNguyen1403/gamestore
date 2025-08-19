@@ -47,6 +47,8 @@
     cursor: pointer;
 }
 
+/*Responsive Design */
+
 @media(max-width:1280px){
     .shopcategory-banner{
         margin: 20px auto;

@@ -20,10 +20,10 @@ const LoginSignup = () => {
           <span> Đăng nhập tại đây</span>
         </p>
 
-        <div className="loginsignup-agree">
+        {/* <div className="loginsignup-agree">
           <input type="checkbox" name='' id='' />
           <p>Tôi đồng ý các điều khoản của trang web</p>
-        </div>
+        </div> */}
       </div>
     </div>
   )
