@@ -1,5 +1,5 @@
 .cartProducts{
-    margin: 100px 170px;
+    margin: 80px 70px;
 }
 
 .cartProducts hr{
@@ -10,7 +10,7 @@
 
 .cartProducts-format-main{
     display: grid;
-    grid-template-columns: 0.7fr 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
     align-items: center;
     justify-items: center;
     gap: 75px;
@@ -36,8 +36,8 @@
 }
 
 .cartProducts-quantity{
-    width: 64px;
-    height: 50px;
+    width: 50px;
+    height: 40px;
     border: 2px solid #ebebeb;
     background: white;
 }
@@ -109,4 +109,74 @@
     background: #2579f2;
     color: white;
     cursor: pointer;
+}
+
+/* Responsive Design */
+
+@media(max-width:1280px){
+    .cartProducts{
+        margin: 60px 50px;
+    }
+
+    .cartProducts-format-main{
+        grid-template-columns: 1fr 3fr 0.5fr 0.8fr 0.8fr 0.5fr;
+        gap: 20px;
+        padding: 15px 0px;
+        font-size: 15px;
+    }
+
+    .carticon-product-icon{
+        height: 50px;
+    }
+
+    .cartProducts-remove-icon{
+        margin: auto;
+    }
+
+    .cartProducts-quantity{
+        width: 40px;
+        height: 30px;
+    }
+
+    .cartProducts-down{
+        margin: 80px 0px;
+        flex-direction: column-reverse;
+        gap: 80px;
+    }
+
+    .cartProducts-total{
+        margin: 0;
+    }
+
+    .cartProducts-total button{
+        max-width: 200px;
+        height: 45px;
+        font-size: 13px;
+    }
+
+    .cartProducts-promobox{
+        width: auto;
+        max-width: 500px;
+    }
+
+    .cartProducts-promobox input{
+        width: 100%;
+    }
+
+    .cartProducts-promobox button{
+        width: 120px;
+        margin-left: -125px;
+    }
+}
+
+@media(max-width:500px){
+    .cartProducts-format-main{
+        display: none;
+        grid-template-columns: 0.5fr 2fr 0.5fr;
+        gap: 10px;
+    }
+
+    .cartProducts-format{
+        display: grid;
+    }
 }
