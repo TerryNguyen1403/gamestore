@@ -10,7 +10,7 @@ const Breadcrums = (props) => {
       HOME
       <img src={arrow_icon} alt="" />
       SHOP <img src={arrow_icon} alt="" />
-      {product.category}
+      {product.platform}
       <img src={arrow_icon} alt="" />
       {product.name}
     </div>

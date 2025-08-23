@@ -6,17 +6,27 @@ import cart_icon from '../Assets/cart_icon.png'
 import dropdown_icon from '../Assets/nav_dropdown.png'
 
 import { useContext, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ShopContext } from '../../Context/ShopContext'
 
 const Navbar = () => {
+  let navigate = useNavigate();
+
   const [menu, setMenu] = useState('shop');
-  const { getTotalItems } = useContext(ShopContext);
+  const { getTotalItems, updateAuthStatus, resetCart } = useContext(ShopContext);
   const menuRef = useRef();
 
   const dropdown_toggle = (e) => {
     menuRef.current.classList.toggle('nav-menu-visible');
     e.target.classList.toggle('open');
+  }
+
+  const handleLogout = () => {
+    resetCart();
+    localStorage.removeItem('auth-token');
+    updateAuthStatus(false);
+    alert('Đăng xuất thành công');
+    navigate('/');
   }
 
   return (
@@ -41,32 +51,42 @@ const Navbar = () => {
             {menu==='shop' ? <hr/> : <></>}
         </li>
 
-        <li onClick={() => {setMenu('pc')}}>
-            <Link style={{ textDecoration: 'none' }} to='/pc'>
+        <li onClick={() => {setMenu('Windows')}}>
+            <Link style={{ textDecoration: 'none' }} to='/Windows'>
                 Windows
             </Link>
-            {menu==='pc' ? <hr/> : <></>}
+            {menu==='Windows' ? <hr/> : <></>}
         </li>
 
-        <li onClick={() => {setMenu('ps5')}}>
-            <Link style={{ textDecoration: 'none' }} to='/ps5'>
+        <li onClick={() => {setMenu('Playstation')}}>
+            <Link style={{ textDecoration: 'none' }} to='/Playstation'>
                 Playstation 5
             </Link>
-            {menu==='ps5' ? <hr/> : <></>}
+            {menu==='Playstation' ? <hr/> : <></>}
         </li>
 
-        <li onClick={() => {setMenu('nintendo')}}>
-            <Link style={{ textDecoration: 'none' }} to='/nintendo'>
+        <li onClick={() => {setMenu('Nintendo')}}>
+            <Link style={{ textDecoration: 'none' }} to='/Nintendo'>
                 Nintendo Swtich
             </Link>
-            {menu==='nintendo' ? <hr/> : <></>}
+            {menu==='Nintendo' ? <hr/> : <></>}
         </li>
       </ul>
 
       <div className="nav-login-cart">
-        <Link to='/login'>
+        {localStorage.getItem('auth-token') ? (
+          <button
+            onClick={() => {
+              handleLogout()
+            }}
+          >
+            Đăng xuất
+          </button>
+        ) : (
+          <Link to='/login'>
             <button>Đăng nhập</button>
-        </Link>
+          </Link>
+        )}
 
         <Link to='/cart'>
             <img src={cart_icon} alt='cart_icon' />

@@ -1,38 +1,38 @@
-.shopcategory-banner{
+.shop-platform-banner{
     display: block;
     margin: 30px auto;
     width: 90%;
 }
 
-.shopcategory-indexSort{
+.shop-platform-indexSort{
     display: flex;
     margin: 0px 75px;
     justify-content: space-between;
     align-items: center;
 }
 
-.shopcategory-sort{
+.shop-platform-sort{
     padding: 10px 20px;
     border-radius: 40px;
     border: 1px solid #888;
 }
 
-.shopcategory-indexSort p span{
+.shop-platform-indexSort p span{
     font-weight: 600;
 }
 
-.shopcategory-products{
+.shop-platform-products{
     margin: 20px 30px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     row-gap: 80px;
 }
 
-.shopcategory-products .item{
+.shop-platform-products .item{
         margin: auto;
 }
 
-.shopcategory-loadmore{
+.shop-platform-loadmore{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,36 +50,36 @@
 /*Responsive Design */
 
 @media(max-width:1280px){
-    .shopcategory-banner{
+    .shop-platform-banner{
         margin: 20px auto;
         width: 90%;
     }
 
-    .shopcategory-indexSort{
+    .shop-platform-indexSort{
         width: 90%;
         margin: auto;
     }
 
-    .shopcategory-sort{
+    .shop-platform-sort{
         padding: 5px 10px;
         font-size: 13px;
     }
 
-    .shopcategory-indexSort p{
+    .shop-platform-indexSort p{
         font-size: 13px;
     }
 
-    .shopcategory-products{
+    .shop-platform-products{
         width: 90%;
         margin: 10px auto;
         row-gap: 40px;
     }
 
-    .shopcategory-products .item{
+    .shop-platform-products .item{
         margin: auto;
     }
 
-    .shopcategory-loadmore{
+    .shop-platform-loadmore{
         margin: 100px auto;
         width: 200px;
         height: 60px;
@@ -88,19 +88,19 @@
 }
 
 @media(max-width:800px){
-    .shopcategory-banner{
+    .shop-platform-banner{
         width: 95%;
     }
 
-    .shopcategory-products{
+    .shop-platform-products{
         width: 95%;
     }
 
-    .shopcategory-products .item{
+    .shop-platform-products .item{
         margin-left: 10px;
     }
 
-    .shopcategory-loadmore{
+    .shop-platform-loadmore{
         margin:60px auto;
         width: 150px;
         height: 40px;
@@ -109,11 +109,11 @@
 }
 
 @media(max-width:500px){
-    .shopcategory-products{
+    .shop-platform-products{
         grid-template-columns: 1fr 1fr;
     }
 
-    .shopcategory-products .item{
+    .shop-platform-products .item{
         margin: auto;
     }
 }

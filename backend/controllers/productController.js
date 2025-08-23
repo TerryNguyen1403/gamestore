@@ -1,6 +1,6 @@
 const Product = require('../models/product');
 
-// Add product
+// [POST] Add product
 const addProduct = async (req, res) => {
     let products = await Product.find({});
     let id;
@@ -15,7 +15,7 @@ const addProduct = async (req, res) => {
     const newProduct = new Product({
         id: id,
         name: req.body.name,
-        category: req.body.category,
+        platform: req.body.platform,
         image: req.body.image,
         new_price: req.body.new_price,
         old_price: req.body.old_price
@@ -23,29 +23,45 @@ const addProduct = async (req, res) => {
 
     await newProduct.save();
     res.status(200).json({
-        message: 'Product added successfully',
+        message: 'Thêm sản phẩm thành công',
         newProduct
     })
 };
 
-// Remove product
+// [POST] Remove product
 const removeProduct = async (req, res) => {
     await Product.findOneAndDelete({
         id: req.body.id
     });
     res.json({
-        message: 'Product removed successfully'
+        message: 'Xóa sản phẩm thành công'
     })
 };
 
-// Get all products
+// [GET] all products
 const getAllProducts = async (req, res) => {
     const allProducts = await Product.find({});
     res.json(allProducts);
 }
 
+// [GET] new collection
+const getNewCollection = async (req, res) => {
+    let products = await Product.find({});
+    let newCollection = products.slice(-8);
+    res.send(newCollection);
+}
+
+// [GET] Popular Products
+const getPopularProducts = async (req, res) => {
+    let products = await Product.find({platform: 'Windows'});
+    let popularProducts = products.slice(-4);
+    res.send(popularProducts);
+}
+
 module.exports = {
     addProduct,
     removeProduct,
-    getAllProducts
+    getAllProducts,
+    getNewCollection,
+    getPopularProducts
 };

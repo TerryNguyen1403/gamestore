@@ -13,6 +13,8 @@ const connectDB = require('./connectDB');
 
 // Import routes
 const productRoute = require('./routes/productRoute');
+const userRoute = require('./routes/userRoute');
+const cartRoute = require('./routes/cartRoute');
 
 // Initialize Express app
 const app = express();
@@ -31,7 +33,11 @@ app.get('/', (req, res) => {
 
 // Routes
 app.use('/api/product', productRoute);
+app.use('/api/user', userRoute);
+app.use('/api/cart', cartRoute)
 
+// Serve static files for images
+app.use('/images', express.static(path.join(__dirname, 'upload/images')));
 
 // Start the server
 const port = process.env.PORT || 4000;

@@ -5,11 +5,15 @@ import remove_icon from '../Assets/cart_cross_icon.png'
 
 const CartProducts = () => {
     const {
-        all_product,
+        allProducts,
         cartProducts,
         removeFromCart,
         getTotalCartAmount
     } = useContext(ShopContext);
+
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('vi-VN').format(price);
+    }
 
   return (
     <div className='cartProducts'>
@@ -24,23 +28,25 @@ const CartProducts = () => {
 
         <hr />
 
-        {all_product.map((product) => {
+        {allProducts.map((product) => {
             if (cartProducts[product.id] > 0) {
                 return (
-                    <div>
+                    <div key={product.id}>
                         <div className="cartProducts-format cartProducts-format-main">
                             <img src={product.image} alt="" className='carticon-product-icon'/>
                             <p>{product.name}</p>
-                            <p>{product.new_price} &#8363;</p>
+                            <p>{formatPrice(product.new_price)} ₫</p>
                             <button className='cartProducts-quantity'>
                                 {cartProducts[product.id]}
                             </button>
-                            <p>{product.new_price * cartProducts[product.id]} &#8363;</p>
+                            <p>{formatPrice(product.new_price * cartProducts[product.id])} &#8363;</p>
                             <img
                                 className='cartProducts-remove-icon'
                                 src={remove_icon} alt=""
                                 onClick={() => {
-                                    removeFromCart(product.id)
+                                    if (window.confirm("Bạn có chắc muốn xóa sản phẩm này không?")){
+                                        removeFromCart(product.id)
+                                    }
                                 }}
                             />
                         </div>
@@ -54,12 +60,12 @@ const CartProducts = () => {
         <div className="cartProducts-down">
 
             <div className="cartProducts-total">
-                <h1>cart Total</h1>
+                <h1>Tổng đơn hàng</h1>
 
                 <div>
                     <div className="cartProducts-total-product">
-                        <p>Subtotal</p>
-                        <p>${getTotalCartAmount()}</p>
+                        <p>Tạm tính</p>
+                        <p>{formatPrice(getTotalCartAmount())} &#8363;</p>
                     </div>
 
                     <hr />
@@ -72,12 +78,12 @@ const CartProducts = () => {
                     <hr />
 
                     <div className="cartProducts-total-product">
-                        <h3>Total</h3>
-                        <h3>${getTotalCartAmount()}</h3>
+                        <h3>Tổng cộng</h3>
+                        <h3>{formatPrice(getTotalCartAmount())} &#8363;</h3>
                     </div>
                 </div>
 
-                <button>Process to checkout</button>
+                <button>Đi đến thanh toán</button>
 
             </div>
 
