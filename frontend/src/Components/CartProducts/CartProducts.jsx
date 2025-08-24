@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import './CartProducts.css'
 import { ShopContext } from '../../Context/ShopContext'
 import remove_icon from '../Assets/cart_cross_icon.png'
+import { formatPrice } from '../../utils/formatPrice'
 
 const CartProducts = () => {
     const {
@@ -10,10 +11,6 @@ const CartProducts = () => {
         removeFromCart,
         getTotalCartAmount
     } = useContext(ShopContext);
-
-    const formatPrice = (price) => {
-        return new Intl.NumberFormat('vi-VN').format(price);
-    }
 
   return (
     <div className='cartProducts'>

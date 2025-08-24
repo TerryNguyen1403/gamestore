@@ -3,13 +3,10 @@ import './CSS/ShopPlatform.css'
 import { ShopContext } from '../Context/ShopContext'
 import dropdown_icon from '../Components/Assets/dropdown_icon.png'
 import Item from '../Components/Item/Item'
+import { formatPrice } from '../utils/formatPrice'
 
 const ShopPlatform = (props) => {
   const {allProducts} = useContext(ShopContext);
-
-  const formatPrice = (price) => {
-    return new Intl.NumberFormat('vi-VN').format(price);
-  };
 
   return (
     <div className='shop-platform'>

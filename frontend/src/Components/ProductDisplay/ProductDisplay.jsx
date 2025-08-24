@@ -3,6 +3,7 @@ import './ProductDisplay.css'
 import star_icon from '../Assets/star_icon.png'
 import star_dull_icon from '../Assets/star_dull_icon.png'
 import { ShopContext } from '../../Context/ShopContext'
+import { formatPrice } from '../../utils/formatPrice'
 
 const ProductDisplay = (props) => {
     const {product} = props;
@@ -38,11 +39,11 @@ const ProductDisplay = (props) => {
 
         <div className="productDisplay-right-prices">
             <div className="productDisplay-right-old-price">
-                {product.old_price} &#8363;
+                {formatPrice(product.old_price)} &#8363;
             </div>
 
             <div className="productDisplay-right-new-price">
-                {product.new_price} &#8363;
+                {formatPrice(product.new_price)} &#8363;
             </div>
         </div>
 
@@ -57,7 +58,7 @@ const ProductDisplay = (props) => {
         </button>
 
         <p className='productDisplay-right-category'>
-            <span>Thể loại: </span> Bắn súng, Hành động
+            <span>Nền tảng: </span> {product.platform}
         </p>
 
       </div>
