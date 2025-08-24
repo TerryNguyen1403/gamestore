@@ -9,7 +9,8 @@ const {
     removeProduct,
     getAllProducts,
     getNewCollection,
-    getPopularProducts
+    getPopularProducts,
+    getRelatedProducts
 } = require('../controllers/productController');
 
 const router = express.Router();
@@ -23,6 +24,7 @@ router.post('/upload-image', uploadImages.single('product'), (req, res) => {
         img_url: `http://localhost:${port}/images/${req.file.filename}`
     })
 });
-router.get('/popular-products', getPopularProducts)
+router.get('/popular-products', getPopularProducts);
+router.get('/related-products/:platform', getRelatedProducts);
 
 module.exports = router;

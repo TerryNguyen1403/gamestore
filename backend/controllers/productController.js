@@ -58,10 +58,25 @@ const getPopularProducts = async (req, res) => {
     res.send(popularProducts);
 }
 
+// [GET] Related Products
+const getRelatedProducts = async (req, res) => {
+    try {
+        const { platform } = req.params;
+        const relatedProducts = await Product.find({
+            platform: platform
+        }).limit(4);
+
+        res.send(relatedProducts);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 module.exports = {
     addProduct,
     removeProduct,
     getAllProducts,
     getNewCollection,
-    getPopularProducts
+    getPopularProducts,
+    getRelatedProducts
 };
