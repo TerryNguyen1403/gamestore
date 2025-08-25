@@ -27,10 +27,9 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    available: {
-        type: Boolean,
+    description: {
+        type: String,
         required: true,
-        default: true
     }
 }, { timestamps: true });
 
