@@ -1,9 +1,8 @@
 import React from 'react'
 import './Footer.css'
 import footer_logo from '../Assets/game-store-logo-big.png'
-import ins_icon from '../Assets/instagram_icon.png'
+import github_icon from '../Assets/github_icon.png'
 import linkedin_icon from '../Assets/linkedin_icon.png'
-import facebook_icon from '../Assets/facebook_icon.png'
 
 const Footer = () => {
   return (
@@ -24,15 +23,23 @@ const Footer = () => {
 
       <div className="footer-social-icon">
         <div className="footer-icons-container">
-            <img src={ins_icon} alt="" />
+          <a
+            href="https://github.com/TerryNguyen1403/gamestore"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={github_icon} alt="" />
+          </a>
         </div>
 
         <div className="footer-icons-container">
-            <img src={facebook_icon} alt="" />
-        </div>
-
-        <div className="footer-icons-container">
+            <a
+            href="https://linkedin.com/in/nhtgiang2003"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={linkedin_icon} alt="" />
+          </a>
         </div>
       </div>
 

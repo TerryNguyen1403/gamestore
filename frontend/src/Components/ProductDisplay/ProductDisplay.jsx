@@ -48,7 +48,7 @@ const ProductDisplay = (props) => {
         </div>
 
         <div className="productDisplay-right-description">
-            Description
+            {product.description}
         </div>
 
         <button

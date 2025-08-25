@@ -21,6 +21,7 @@ const Navbar = () => {
     e.target.classList.toggle('open');
   }
 
+  // Xử lý sự kiện khi người dùng nhấn đăng xuất
   const handleLogout = () => {
     resetCart();
     localStorage.removeItem('auth-token');
@@ -29,10 +30,20 @@ const Navbar = () => {
     navigate('/');
   }
 
+  // Xử lý sự kiện khi người dùng nhấn vào logo trang web
+  const handleLogoClick = () => {
+    setMenu('shop');
+    navigate('/');
+  }
+
   return (
     <div className='navbar'>
 
-      <div className='nav-logo'>
+      <div
+        className='nav-logo'
+        style={{cursor: 'pointer'}}
+        onClick={handleLogoClick}
+      >
         <img src={logo} alt='logo' />
         <p>GAMESTORE</p>
       </div>

@@ -14,7 +14,7 @@ const ShopPlatform = (props) => {
 
       <div className="shop-platform-indexSort">
         <p>
-          <span>Showing 1-12</span> out of 36 products
+          <span>Game cho nền tảng {props.platform}</span>
         </p>
 
         <div className="shop-platform-sort">
@@ -46,10 +46,6 @@ const ShopPlatform = (props) => {
             />
           });
         })()}
-      </div>
-
-      <div className="shop-platform-loadmore">
-        Explore more
       </div>
     </div>
   )
