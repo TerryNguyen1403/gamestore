@@ -4,7 +4,11 @@ import hand_icon from'../Assets/hand_icon.png'
 import arrow_icon from '../Assets/arrow.png'
 import hero_img from '../Assets/hero_image.png'
 
-const Hero = () => {
+const Hero = ({ newCollectionsRef }) => {
+  const handleScrollView = () => {
+    newCollectionsRef.current.scrollIntoView({ behavior: 'smooth' });
+  }
+
   return (
     <div className='hero'>
 
@@ -18,7 +22,10 @@ const Hero = () => {
             <p>siêu phẩm mới</p>
         </div>
 
-        <div className="hero-latest-btn">
+        <div
+          className="hero-latest-btn"
+          onClick={handleScrollView}
+        >
             <div>Xem ngay</div>
             <img src={arrow_icon} alt='' />
         </div>

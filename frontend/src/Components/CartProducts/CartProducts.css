@@ -101,9 +101,43 @@
     height: 50px;
 }
 
+.voucher-error, 
+.voucher-success {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
+    animation: fadeIn 0.3s ease-in-out;
+    max-width: 400px;
+}
+
+/* Error */
+.voucher-error {
+    color: #b91c1c;              /* đỏ đậm */
+    background-color: #fee2e2;   /* hồng nhạt */
+    border: 1px solid #fecaca;   /* viền hồng */
+}
+
+/* Success */
+.voucher-success {
+    color: #166534;              /* xanh đậm */
+    background-color: #dcfce7;   /* xanh nhạt */
+    border: 1px solid #bbf7d0;   /* viền xanh */
+}
+
+/* Hiệu ứng */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
 .cartProducts-promobox button{
     width: 180px;
-    height: 59px;
+    height: 58px;
     border: none;
     border-radius: .375rem;
     background: #2579f2;

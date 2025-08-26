@@ -39,6 +39,7 @@ const LoginSignup = () => {
       } else {
         localStorage.setItem('auth-token', data.token);
         updateAuthStatus(true);
+        alert('Đăng nhập thành công')
         navigate('/');
       }
 

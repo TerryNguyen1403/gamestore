@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import Hero from '../Components/Hero/Hero'
 import Popular from '../Components/Popular/Popular'
 import Offers from '../Components/Offers/Offers'
@@ -6,12 +6,15 @@ import NewCollections from '../Components/NewCollections/NewCollections'
 import NewsLetter from '../Components/NewsLetter/NewsLetter'
 
 const Shop = () => {
+  const newCollectionsRef = useRef(null);
+  const popularProductsRef = useRef(null);
+
   return (
     <div>
-      <Hero />
-      <Popular />
-      <Offers />
-      <NewCollections />
+      <Hero newCollectionsRef={newCollectionsRef} />
+      <NewCollections newCollectionsRef={newCollectionsRef} />
+      <Offers popularProductsRef={popularProductsRef} />
+      <Popular popularProductsRef={popularProductsRef} />
       <NewsLetter />
     </div>
   )

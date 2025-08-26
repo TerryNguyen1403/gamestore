@@ -3,7 +3,7 @@ import './Popular.css'
 import Item from '../Item/Item'
 import { formatPrice } from '../../utils/formatPrice'
 
-const Popular = () => {
+const Popular = ({ popularProductsRef }) => {
   const [popularProducts, setPopularProducts] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const Popular = () => {
 
   return (
     <div className='popular'>
-      <h1>GAME HOT</h1>
+      <h1 ref={popularProductsRef} >GAME HOT</h1>
       <hr />
 
       <div className="popular-item">

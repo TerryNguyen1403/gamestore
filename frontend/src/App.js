@@ -7,6 +7,7 @@ import ShopPlatform from './Pages/ShopPlatform';
 import Product from './Pages/Product';
 import Cart from './Pages/Cart';
 import LoginSignup from './Pages/LoginSignup';
+import ScrollToTop from './Components/ScrollToTop/ScrollToTop';
 import Footer from './Components/Footer/Footer';
 import banner_pc from './Components/Assets/banner_pc.png'
 import banner_ps5 from './Components/Assets/banner_ps5.png'
@@ -36,6 +37,7 @@ function App() {
 
         <Footer />
       </BrowserRouter>
+      <ScrollToTop />
     </div>
   );
 }

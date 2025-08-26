@@ -16,6 +16,12 @@ const ShopContextProvider = (props) => {
     const [allProducts, setAllProducts] = useState([]);
     const [cartProducts, setCartProducts] = useState(getDefaultCart());
 
+    // Thêm states cho voucher
+    const [voucherCode, setVoucherCode] = useState('');
+    const [discount, setDiscount] = useState(0);
+    const [voucherError, setVoucherError] = useState('');
+    const [voucherSuccess, setVoucherSuccess] = useState('');
+
     // Thêm state theo dõi auth
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('auth-token'));
 
@@ -31,20 +37,6 @@ const ShopContextProvider = (props) => {
             }
         };
         fetchProducts();
-        
-        // if (localStorage.getItem('auth-token')){
-        //     fetch('http://localhost:4000/api/cart/get-cart', {
-        //         method: 'POST',
-        //         headers: {
-        //             Accept: 'application/json',
-        //             'auth-token': `${localStorage.getItem('auth-token')}`,
-        //             'Content-Type': 'application/json'
-        //         },
-        //         body: ""
-        //     })
-        //         .then((res) => res.json())
-        //         .then((data) => setCartProducts(data))
-        // }
 
         const fetchCartData = async () => {
             const token = localStorage.getItem('auth-token');
@@ -114,7 +106,7 @@ const ShopContextProvider = (props) => {
         }
     }
 
-    // Lấy chi tiết sản phẩm ở Cart
+    // Lấy tổng tiền của giỏ hàng
     const getTotalCartAmount = () => {
         let totalAmount = 0;
 
@@ -153,7 +145,54 @@ const ShopContextProvider = (props) => {
         setIsAuthenticated(status);
     }
 
-    // Thêm các chức năng vào userContext
+    // Áp mã voucher
+    const applyVoucher = async (voucherCode) => {
+        try {
+            const token = localStorage.getItem('auth-token');
+            if (!token) {
+                alert('Vui lòng đăng nhập trước khi áp mã giảm giá');
+                return;
+            }
+
+            const response = await fetch('http://localhost:4000/api/voucher/get-voucher', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth-token': token
+                },
+                body: JSON.stringify({ voucherCode })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setVoucherCode(voucherCode);
+                setDiscount(data.discount);
+                setVoucherError('');
+                setVoucherSuccess('Mã giảm giá đã được áp dụng!')
+            } else {
+                setVoucherCode('');
+                setDiscount(0);
+                setVoucherError('Mã giảm giá không hợp lệ');
+                setVoucherSuccess('');
+            }
+        } catch (error) {
+            console.log('Xảy ra lỗi khi áp mã giảm giá: ', error);
+            setVoucherCode('');
+            setDiscount(0);
+            setVoucherError('Xảy ra lỗi khi áp mã giảm giá');
+        }
+    }
+
+    // Reset lại mục giảm giá nếu người dùng xóa hết input
+    const resetDiscount = () => {
+        setVoucherCode('');
+        setDiscount(0);
+        setVoucherError('');
+        setVoucherSuccess('');
+    }
+
+    // Thêm các chức năng vào shopContext
     const contextValue = {
         allProducts,
         cartProducts,
@@ -162,7 +201,13 @@ const ShopContextProvider = (props) => {
         getTotalCartAmount,
         getTotalItems,
         updateAuthStatus,
-        resetCart
+        resetCart,
+        applyVoucher,
+        voucherCode,
+        discount,
+        voucherError,
+        voucherSuccess,
+        resetDiscount
     };
 
     return (

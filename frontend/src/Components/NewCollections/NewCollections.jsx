@@ -3,7 +3,7 @@ import './NewCollections.css'
 import Item from '../Item/Item'
 import { formatPrice } from '../../utils/formatPrice'
 
-const NewCollections = () => {
+const NewCollections = ({ newCollectionsRef }) => {
   const [newCollections, setNewCollections] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const NewCollections = () => {
 
   return (
     <div className='new-collections'>
-      <h1>Các tựa game mới</h1>
+      <h1 ref={newCollectionsRef}>Các tựa game mới</h1>
       <hr />
 
       <div className="collections">
