@@ -65,6 +65,7 @@ const LoginSignup = () => {
 
       if (data.token) {
         localStorage.setItem('auth-token', data.token);
+        alert('Đăng ký thành công');
         navigate('/');
       } else {
         alert(data.message);
