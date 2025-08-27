@@ -5,11 +5,13 @@ const fetchUser = require('../middlewares/fetchUser');
 const {
     addToCart,
     removeFromCart,
-    getCart
+    getCart,
+    resetVoucher
 } = require('../controllers/cartController');
 
 router.post('/add-to-cart', fetchUser, addToCart);
 router.post('/remove-from-cart', fetchUser, removeFromCart);
 router.post('/get-cart', fetchUser, getCart);
+router.put('/reset-voucher', fetchUser, resetVoucher);
 
 module.exports = router;

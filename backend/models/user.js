@@ -11,9 +11,6 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String
     },
-    cartData: {
-        type: Object
-    },
     date: {
         type: Date,
         default: Date.now()

@@ -15,6 +15,7 @@ const connectDB = require('./connectDB');
 const productRoute = require('./routes/productRoute');
 const userRoute = require('./routes/userRoute');
 const cartRoute = require('./routes/cartRoute');
+const voucherRoute = require('./routes/voucherRoute');
 
 // Initialize Express app
 const app = express();
@@ -34,7 +35,8 @@ app.get('/', (req, res) => {
 // Routes
 app.use('/api/product', productRoute);
 app.use('/api/user', userRoute);
-app.use('/api/cart', cartRoute)
+app.use('/api/cart', cartRoute);
+app.use('/api/voucher', voucherRoute);
 
 // Serve static files for images
 app.use('/images', express.static(path.join(__dirname, 'upload/images')));

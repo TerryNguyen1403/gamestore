@@ -48,7 +48,7 @@ const getAllProducts = async (req, res) => {
 // [GET] new collection
 const getNewCollection = async (req, res) => {
     let products = await Product.find({});
-    let newCollection = products.slice(-8);
+    let newCollection = products.slice(-4);
     res.send(newCollection);
 }
 
