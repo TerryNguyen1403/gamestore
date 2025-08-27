@@ -2,19 +2,9 @@ import React, { createContext, useEffect, useState} from "react";
 
 export const ShopContext = createContext(null);
 
-const getDefaultCart = () => {
-        let cart = {};
-
-        for (let index = 0; index < 300+1; index++){
-            cart[index] = 0;
-        }
-
-        return cart;
-    }
-
 const ShopContextProvider = (props) => {
     const [allProducts, setAllProducts] = useState([]);
-    const [cartProducts, setCartProducts] = useState(getDefaultCart());
+    const [cartItems, setCartItems] = useState([]);
 
     // Thêm states cho voucher
     const [voucherCode, setVoucherCode] = useState('');
@@ -24,6 +14,27 @@ const ShopContextProvider = (props) => {
 
     // Thêm state theo dõi auth
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('auth-token'));
+
+    const fetchCartData = async () => {
+        const token = localStorage.getItem('auth-token');
+        if (token){
+            try {
+                const response = await fetch('http://localhost:4000/api/cart/get-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'auth-token': token
+                    }
+                });
+                const data = await response.json();
+                if (data) {
+                    setCartItems(data);
+                }
+            } catch (error) {
+                console.error("Error fetching cart:", error);
+            }
+        }
+    }
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -36,57 +47,38 @@ const ShopContextProvider = (props) => {
                 console.error('Xảy ra lỗi khi fetch sản phẩm: ', error);
             }
         };
+
         fetchProducts();
-
-        const fetchCartData = async () => {
-            const token = localStorage.getItem('auth-token');
-            if (token){
-                try {
-                    const response = await fetch('http://localhost:4000/api/cart/get-cart', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'auth-token': token
-                        }
-                    });
-                    const data = await response.json();
-                    if (data) {
-                        setCartProducts(data);
-                    }
-                } catch (error) {
-                    console.error("Error fetching cart:", error);
-                }
-            }
-        }
-
         fetchCartData();
     }, [isAuthenticated]);
 
     // Thêm sản phảm vào giỏ hàng
-    const addToCart = (productId) => {
-        setCartProducts((prevProducts) => ({
-            ...prevProducts,
-            [productId]: prevProducts[productId]+1
-        }));
+    const addToCart = async (productId) => {
+        try {
+            const token = localStorage.getItem('auth-token');
+            if (!token) return;
 
-        if(localStorage.getItem('auth-token')) {
-            fetch(`http://localhost:4000/api/cart/add-to-cart`,{
+            const response = await fetch('http://localhost:4000/api/cart/add-to-cart', {
                 method: 'POST',
                 headers: {
-                    Accept: 'application/json',
-                    'auth-token': `${localStorage.getItem('auth-token')}`,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'auth-token': `${token}`
                 },
-                body: JSON.stringify(({"productId": productId}))
-            })
-                .then((res) => res.json())
-                .then((data) => console.log(data))
+                body: JSON.stringify({ productId })
+            });
+
+            const data = await response.json();
+            if (data.success){
+                fetchCartData();
+            }
+        } catch (error) {
+            console.error('Xảy ra lỗi khi thêm sản phẩm vào giỏ: ', error);
         }
     };
 
     // Xóa sản phẩm khỏi giỏ hàng
     const removeFromCart = (productId) => {
-        setCartProducts((prevProducts) => ({
+        setCartItems((prevProducts) => ({
             ...prevProducts,
             [productId]: prevProducts[productId]-1
         }))
@@ -110,13 +102,13 @@ const ShopContextProvider = (props) => {
     const getTotalCartAmount = () => {
         let totalAmount = 0;
 
-        for (const item in cartProducts) {
-            if (cartProducts[item] > 0) {
+        for (const item in cartItems) {
+            if (cartItems[item] > 0) {
                 let itemInfo = allProducts.find(
                     (product) => product.id === Number(item)
                 );
 
-                totalAmount += itemInfo.new_price * cartProducts[item];
+                totalAmount += itemInfo.new_price * cartItems[item];
             }
         }
         return totalAmount;
@@ -126,9 +118,9 @@ const ShopContextProvider = (props) => {
     const getTotalItems = () => {
         let totalItems = 0;
 
-        for(const item in cartProducts){
-            if(cartProducts[item] > 0){
-                totalItems += cartProducts[item];
+        for(const item in cartItems){
+            if(cartItems[item] > 0){
+                totalItems += cartItems[item];
             }
         }
 
@@ -137,7 +129,7 @@ const ShopContextProvider = (props) => {
 
     // Reset giỏ hàng
     const resetCart = () => {
-        setCartProducts(getDefaultCart());
+        setCartItems([]);
     }
 
     // Cập nhật auth status
@@ -185,17 +177,30 @@ const ShopContextProvider = (props) => {
     }
 
     // Reset lại mục giảm giá nếu người dùng xóa hết input
-    const resetDiscount = () => {
+    const resetDiscount = async (userId) => {
         setVoucherCode('');
         setDiscount(0);
         setVoucherError('');
         setVoucherSuccess('');
+
+        try {
+            await fetch('http://localhost:4000/api/cart/reset-voucher', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ userId: userId})
+            });
+
+        } catch (error) {
+            console.error('Reset voucher thất bại: ', error);
+        }
     }
 
     // Thêm các chức năng vào shopContext
     const contextValue = {
         allProducts,
-        cartProducts,
+        cartItems,
         addToCart,
         removeFromCart,
         getTotalCartAmount,

@@ -4,11 +4,13 @@ import { ShopContext } from '../../Context/ShopContext'
 import remove_icon from '../Assets/cart_cross_icon.png'
 import { formatPrice } from '../../utils/formatPrice'
 import { useState } from 'react'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const CartProducts = () => {
     const {
         allProducts,
-        cartProducts,
+        cartItems,
         removeFromCart,
         getTotalCartAmount,
         applyVoucher,
@@ -20,6 +22,18 @@ const CartProducts = () => {
 
     // Tạo states cho Voucher input field
     const [inputVoucher, setInputVoucher] = useState('');
+
+    // Khai báo useNavigate
+    const navigate = useNavigate();
+
+    // Kiểm tra đăng nhập
+    useEffect(() => {
+        const token = localStorage.getItem('auth-token');
+        if (!token){
+            alert('Vui lòng đăng nhập để xem giỏ hàng');
+            navigate('/login');
+        }
+    }, [navigate]);
 
     // Xử lý khi nhấn nút nhập Voucher
     const handleApplyVoucher = () => {
@@ -53,7 +67,7 @@ const CartProducts = () => {
         <hr />
 
         {allProducts.map((product) => {
-            if (cartProducts[product.id] > 0) {
+            if (cartItems[product.id] > 0) {
                 return (
                     <div key={product.id}>
                         <div className="cartProducts-format cartProducts-format-main">
@@ -61,9 +75,9 @@ const CartProducts = () => {
                             <p>{product.name}</p>
                             <p>{formatPrice(product.new_price)} ₫</p>
                             <button className='cartProducts-quantity'>
-                                {cartProducts[product.id]}
+                                {cartItems[product.id]}
                             </button>
-                            <p>{formatPrice(product.new_price * cartProducts[product.id])} &#8363;</p>
+                            <p>{formatPrice(product.new_price * cartItems[product.id])} &#8363;</p>
                             <img
                                 className='cartProducts-remove-icon'
                                 src={remove_icon} alt=""
