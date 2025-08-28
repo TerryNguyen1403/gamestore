@@ -1,12 +1,28 @@
-import React, { useContext} from 'react'
+import React, { useContext, useState} from 'react'
 import './CSS/ShopPlatform.css'
 import { ShopContext } from '../Context/ShopContext'
-import dropdown_icon from '../Components/Assets/dropdown_icon.png'
 import Item from '../Components/Item/Item'
 import { formatPrice } from '../utils/formatPrice'
+import { ChevronDown, Check } from 'lucide-react'
 
 const ShopPlatform = (props) => {
   const {allProducts} = useContext(ShopContext);
+
+  // State cho nút sắp xết
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedSort, setSelectedSort] = useState('Mặc định');
+
+  // Các lựa chọn sắp xếp
+  const sortOptions = [
+    'Mặc định',
+    'Giá: Tăng dần',
+    'Giá: Giảm dần',
+  ]
+
+  const handleSortSelect = (option) => {
+    setSelectedSort(option);
+    setIsOpen(false);
+  };
 
   return (
     <div className='shop-platform'>
@@ -17,10 +33,69 @@ const ShopPlatform = (props) => {
           <span>Game cho nền tảng {props.platform}</span>
         </p>
 
+        {/* Nút sắp xếp */}
+
         <div className="shop-platform-sort">
-          Sort by <img src={dropdown_icon} alt="" />
+          <button
+            className='shop-platform-sort-button'
+            onMouseEnter={() => setIsOpen(true)}
+            onMouseLeave={() => setIsOpen(false)}
+          >
+
+            <div className="shop-platform-sort-text">
+              <svg>
+                <path d="M3 6h18M7 12h10m-7 6h4"/>
+              </svg>
+              <span>Sắp xếp</span>
+            </div>
+
+            <ChevronDown
+              className={
+                `chevron-down ${isOpen ? 'rotate' : ''}`
+              }
+            />
+
+          </button>
+
+          {/* Dropdown Menu */}
+
+          <div
+            className={`dropdown-menu ${isOpen ? 'visible' : 'invisible'}`}
+            onMouseEnter={() => setIsOpen(true)}
+            onMouseLeave={() => setIsOpen(false)}
+          >
+            <ul>
+              {sortOptions.map((option, index) => (
+                <li key={index}>
+                  <button
+                    className='option-button'
+                    onClick={() => setSelectedSort(option)}
+                  >
+                    <span
+                      className={`
+                        option-text-span
+                        ${
+                        selectedSort === option
+                          ? 'selected'
+                          : 'not-selected'
+                        }`
+                      }
+                    >
+                      {option}
+                    </span>
+                    {selectedSort === option && (
+                      <Check className="check-icon" />
+                    )}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </div>
       </div>
+
+      {/* Hiển thị sản phẩm */}
 
       <div className="shop-platform-products">
         {(() => {
