@@ -53,10 +53,16 @@ const ShopContextProvider = (props) => {
     }, [isAuthenticated]);
 
     // Thêm sản phảm vào giỏ hàng
-    const addToCart = async (productId) => {
+    const addToCart = async (productId, navigate = null) => {
         try {
             const token = localStorage.getItem('auth-token');
-            if (!token) return;
+            if (!token) {
+                alert('Vui lòng đăng nhập trước khi thêm sản phẩm vào giỏ hàng');
+                if (navigate) {
+                    navigate('/login');
+                }
+                return;
+            };
 
             const response = await fetch('http://localhost:4000/api/cart/add-to-cart', {
                 method: 'POST',
@@ -70,6 +76,7 @@ const ShopContextProvider = (props) => {
             const data = await response.json();
             if (data.success){
                 fetchCartData();
+                alert('Thêm vào giỏ hàng thành công');
             }
         } catch (error) {
             console.error('Xảy ra lỗi khi thêm sản phẩm vào giỏ: ', error);

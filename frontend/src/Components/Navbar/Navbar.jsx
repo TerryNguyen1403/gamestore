@@ -71,7 +71,7 @@ const Navbar = () => {
 
         <li onClick={() => {setMenu('Playstation')}}>
             <Link style={{ textDecoration: 'none' }} to='/Playstation'>
-                Playstation 5
+                Playstation
             </Link>
             {menu==='Playstation' ? <hr/> : <></>}
         </li>

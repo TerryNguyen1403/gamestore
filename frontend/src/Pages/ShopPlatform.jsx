@@ -24,6 +24,20 @@ const ShopPlatform = (props) => {
     setIsOpen(false);
   };
 
+  // Hàm sắp xếp sản phẩm
+  const sortProducts = (products, sortOption) => {
+    const sortedProducts = [...products];
+    
+    switch (sortOption) {
+      case 'Giá: Tăng dần':
+        return sortedProducts.sort((a, b) => a.new_price - b.new_price);
+      case 'Giá: Giảm dần':
+        return sortedProducts.sort((a, b) => b.new_price - a.new_price);
+      default:
+        return sortedProducts;
+    }
+  };
+
   return (
     <div className='shop-platform'>
       <img className='shop-platform-banner' src={props.banner} alt="" />
@@ -37,6 +51,7 @@ const ShopPlatform = (props) => {
 
         <div className="shop-platform-sort">
           <button
+          type='button'
             className='shop-platform-sort-button'
             onMouseEnter={() => setIsOpen(true)}
             onMouseLeave={() => setIsOpen(false)}
@@ -68,8 +83,9 @@ const ShopPlatform = (props) => {
               {sortOptions.map((option, index) => (
                 <li key={index}>
                   <button
+                  type='button'
                     className='option-button'
-                    onClick={() => setSelectedSort(option)}
+                    onClick={() => handleSortSelect(option)}
                   >
                     <span
                       className={`
@@ -110,7 +126,10 @@ const ShopPlatform = (props) => {
             return <p>Hiện tại không có tựa game nào cho nền tảng: {props.platform}</p>;
           }
           
-          return filteredProducts.map((product, index) => {
+          // Áp dụng sắp xếp cho sản phẩm đã lọc
+          const sortedProducts = sortProducts(filteredProducts, selectedSort);
+          
+          return sortedProducts.map((product, index) => {
             return <Item
                 key={index}
                 id={product.id}

@@ -4,21 +4,17 @@ import star_icon from '../Assets/star_icon.png'
 import star_dull_icon from '../Assets/star_dull_icon.png'
 import { ShopContext } from '../../Context/ShopContext'
 import { formatPrice } from '../../utils/formatPrice'
+import { useNavigate } from 'react-router-dom'
 
 const ProductDisplay = (props) => {
     const {product} = props;
     const {addToCart} = useContext(ShopContext);
+    const navigate = useNavigate();
 
   return (
     <div className='productDisplay'>
 
       <div className="productDisplay-left">
-        <div className="productDisplay-img-list">
-            <img src={product.image} alt="" />
-            <img src={product.image} alt="" />
-            <img src={product.image} alt="" />
-            <img src={product.image} alt="" />
-        </div>
 
         <div className="productDisplay-img">
             <img className='productDisplay-main-img' src={product.image} alt="" />
@@ -52,7 +48,7 @@ const ProductDisplay = (props) => {
         </div>
 
         <button
-            onClick={() => {addToCart(product.id)}}
+            onClick={() => {addToCart(product.id, navigate)}}
         >
             Thêm vào giỏ hàng
         </button>
